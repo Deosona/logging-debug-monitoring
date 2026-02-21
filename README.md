@@ -35,11 +35,17 @@ Microservices
 🏗️ Project Structure
 logging-debug-monitoring/
 │
+
 ├── logger.py              # Core structured logger
+
 ├── monitor.py             # Performance & debug monitoring
+
 ├── config.py              # Logging configuration
+
 ├── main.py                # Example usage
+
 ├── requirements.txt       # Dependencies
+
 └── README.md
 
 ⚙️ Features
