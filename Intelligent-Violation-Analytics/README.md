@@ -1,134 +1,190 @@
-Intelligent Violation Analytics & Risk Scoring Engine
-Overview
+# 🚀 Intelligent Violation Analytics & Risk Scoring Engine
 
-The Intelligent Violation Analytics & Risk Scoring Engine is a data-driven system designed to analyze violations, monitor patterns, and generate risk scores for entities such as users, systems, or transactions. The project focuses on identifying risky behavior by applying analytics on logged events and producing meaningful insights for monitoring and decision-making.
+An AI-driven backend system that analyzes candidate violations during online assessments and calculates a dynamic risk score with automated cancellation decisions and admin analytics.
 
-This system can be used in areas such as:
+---
 
-Security monitoring
+## 📌 Project Overview
 
-Fraud detection
+The Intelligent Risk Scoring Engine is designed to:
 
-Compliance tracking
+- Analyze real-time violation logs
+- Assign weighted risk scores
+- Detect suspicious behavioral patterns
+- Auto-cancel high-risk candidates
+- Provide administrative analytics dashboards (API-based)
 
-System activity monitoring
+This system simulates an AI-powered proctoring backend.
 
-Risk assessment in enterprise applications
+---
 
-Key Features
-Violation Detection
+## 🏗️ System Architecture
 
-The system analyzes incoming events and identifies violations based on predefined rules and patterns.
-
-Risk Scoring Engine
-
-Each entity is assigned a risk score based on:
-
-Number of violations
-
-Severity of violations
-
-Frequency of suspicious behavior
-
-Historical activity patterns
-
-Log Processing
-
-The system processes log data to detect abnormal or suspicious activities.
-
-Analytics Dashboard Ready
-
-The processed data can be easily integrated into dashboards for visualization and reporting.
-
-Modular Architecture
-
-The project is designed with modular components, allowing easy integration with other monitoring or analytics tools.
-
-Project Structure
-Intelligent-Violation-Analytics
+```
+app/
 │
-├── app/
-│   ├── violation_detector.py
-│   ├── risk_scoring.py
-│   ├── analytics_engine.py
+├── main.py                  # FastAPI entry point
+├── config.py                # Thresholds & configuration
 │
-├── logs/
-│   └── system_logs.log
-│
-├── README.md
-├── requirements.txt
-└── main.py
-Folder Description
-Folder/File	Description
-app/	Core application logic for violation detection and risk scoring
-logs/	Contains system logs used for analytics
-main.py	Entry point of the application
-requirements.txt	Python dependencies
-README.md	Project documentation
-Technology Stack
+└── risk_engine/
+    ├── models.py            # Pydantic data models
+    ├── scoring.py           # Risk scoring logic
+    ├── patterns.py          # Pattern detection logic
+    ├── cancellation.py      # Auto-cancellation rules
+    └── analytics.py         # Admin analytics utilities
+```
 
-Python
+---
 
-Log Processing
+## ⚙️ Technologies Used
 
-Data Analytics
+- Python 3.13
+- FastAPI
+- Uvicorn
+- Pydantic
+- REST API Architecture
 
-Rule-based Risk Scoring
+---
 
-Git & GitHub for version control
+## 🧠 Core Features
 
-Installation
+### 1️⃣ Risk Score Calculation
+- Severity-based weighting (Low, Medium, High)
+- Confidence score multiplier
+- Cumulative scoring per candidate
 
-Clone the repository:
+### 2️⃣ Suspicious Pattern Detection
+- Burst violation detection (multiple violations in short time window)
+- Repeated high-severity violation detection
 
-git clone https://github.com/Deosona/logging-debug-monitoring.git
+### 3️⃣ Auto Cancellation Logic
+- Auto-cancel if score exceeds threshold
+- Auto-cancel on repeated high severity violations
+- Warning category for moderate risk
 
-Navigate to the project directory:
+### 4️⃣ Admin Analytics APIs
+- Overall violation summary
+- Timeline view (sorted by timestamp)
+- Severity distribution report
 
-cd Intelligent-Violation-Analytics
+---
 
-Install dependencies:
+## 🚀 How to Run the Project
 
-pip install -r requirements.txt
-Running the Project
+### Step 1: Install Dependencies
 
-Run the main application:
+```bash
+pip install fastapi uvicorn
+```
 
-python main.py
+### Step 2: Start the Server
 
-The system will start processing logs and generating violation analytics and risk scores.
+```bash
+uvicorn app.main:app --reload
+```
 
-Example Workflow
+### Step 3: Open API Documentation
 
-System logs are generated.
+Open in browser:
 
-The analytics engine reads log data.
+```
+http://127.0.0.1:8000/docs
+```
 
-Violations are detected using predefined rules.
+Swagger UI will allow full testing of all APIs.
 
-A risk score is calculated.
+---
 
-Results can be used for monitoring or further analysis.
+## 📡 API Endpoints
 
-Future Improvements
+### 🔹 POST `/risk/analyze`
+Analyze candidate violations.
 
-Machine Learning based risk prediction
+**Input:** List of violation objects  
+**Output:**
+- Risk score
+- Risk category (Low / Medium / High)
+- Cancellation decision
+- Suspicious patterns
+- Severity distribution
 
-Real-time streaming analytics
+---
 
-Web dashboard for visualization
+### 🔹 GET `/admin/summary`
+Returns:
+- Total violations
+- Overall risk score
+- Patterns detected
+- Cancellation status
 
-Integration with SIEM tools
+---
 
-Automated alerting system
+### 🔹 GET `/admin/timeline`
+Returns violations sorted by timestamp.
 
-Author
+---
 
-Deosona
+### 🔹 GET `/admin/severity-distribution`
+Returns aggregated severity breakdown.
 
-GitHub:
-https://github.com/Deosona
+---
 
-License
+## 📊 Sample Test Input
 
-This project is licensed under the MIT License.
+```json
+[
+  {
+    "candidate_id": "U101",
+    "violation_type": "phone_detected",
+    "severity_level": "high",
+    "confidence_score": 0.95,
+    "frame_reference": "frame_01.jpg",
+    "timestamp": "2026-02-20T10:30:00"
+  }
+]
+```
+
+---
+
+## 🎯 Risk Classification Logic
+
+| Score Range | Category |
+|-------------|----------|
+| 0 - 5       | Low      |
+| 6 - 10      | Medium   |
+| 11+         | High     |
+
+---
+
+## 🔐 Cancellation Rules
+
+- Score exceeds cancellation threshold
+- Repeated high severity violations detected
+- Moderate warning if threshold not exceeded but risk rising
+
+---
+
+## 📈 Future Improvements
+
+- Database integration (PostgreSQL / MongoDB)
+- Real-time streaming support
+- Machine Learning anomaly detection
+- Dashboard UI (React / Angular)
+- Role-based authentication
+
+---
+
+## 👨‍💻 Author
+
+Developed as part of an advanced backend analytics system project.
+
+---
+
+## 🏆 Project Status
+
+✅ Fully functional  
+✅ API documented  
+✅ Modular architecture  
+✅ Submission ready  
+
+---
